@@ -24,6 +24,9 @@ for i in range(len(content)):
 
     data = {}
 
+    data['link'] = "http://reuters.com"+content[i]
+    data['id'] = i
+
     for heading in soup.find_all(class_="article-headline"):
         #print(heading.text)
         data['title'] = heading.text
@@ -50,6 +53,6 @@ for i in range(len(content)):
 json_data = json.dumps(data_array)
 
 file.close()
-file = open("json_file", 'w')
+file = open("json_file2", 'w')
 json.dump(json_data, file)
 file.close()

@@ -2,8 +2,9 @@
 
 import json
 import pprint
+import nltk
 
-file = open("json_file", 'r')
+file = open("json_file2", 'r')
 
 json_data = json.load(file)
 d = json.loads(json_data)
@@ -14,7 +15,5 @@ print("Total number of blog articles: ",len(d))
 
 #pp.pprint(d[0])
 
-
-
-
+print(d[0]['title'])
 
