@@ -14,6 +14,7 @@ data_array = []
 #print(len(content))
 
 for i in range(len(content)):
+    print("Blog: ",i)
     req_url = urllib.request.Request("http://reuters.com"+content[i])
     html_data = None
 
@@ -47,12 +48,20 @@ for i in range(len(content)):
         #print(article.text)
         data['content'] = article.text
 
+    tags = []
+    for related_tags in soup.find_all(class_="related-topics"):
+        for child in related_tags.find_all('a'):
+            #print(child.text)
+            tags.append(child.text)
+
+    data['tags'] = tags
+
     data_array.append(data)
 
 
 json_data = json.dumps(data_array)
 
 file.close()
-file = open("json_file2", 'w')
+file = open("json_file", 'w')
 json.dump(json_data, file)
 file.close()
