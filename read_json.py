@@ -4,6 +4,7 @@ import json
 import pprint
 import nltk
 import string
+import re
 
 file = open("json_file", 'r')
 
@@ -45,10 +46,19 @@ def frequency(content):
 def filter_freq(freq,word):
     return freq[word]
 
-print(d[0]['title'])
+def word_count(content):
+    r = re.compile(r'[{}]'.format(string.punctuation))
+    new_strs = r.sub(' ',d[0]['content'])
+    word_count = len(new_strs.split())
+    return word_count
+
+def tf(word,content):
+    word_freq = frequency(content)
+    count = filter_freq(word_freq,word)
+    total_word_count = word_count(content)
+    return count / total_word_count
+
 word_filter = tokenize(d[0]['content'])
-word_freq = frequency(d[0]['content'])
 for word in word_filter:
-    print(word,filter_freq(word_freq,word))
-
-
+    print(word, tf(word,d[0]['content']))
+    
